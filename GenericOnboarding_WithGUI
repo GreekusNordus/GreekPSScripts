@@ -1,0 +1,536 @@
+#=====XML creates the box for entering information
+$inputXML = @"
+    <Window x:Class="System.Windows.Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:roleBasedADApp"
+        mc:Ignorable="d"
+        Title="Create User" Height="875" Width="950">
+        <ScrollViewer>
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" RenderTransformOrigin="0.501,1.002">
+        <Label x:Name="firstNameLbl" Content="First name:" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="initialsLbl" Content="Initials:" HorizontalAlignment="Left" Margin="306,48,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lastNameLbl" Content="Last name:" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="fullNameLbl" Content="Full name:" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="firstNameTB" HorizontalAlignment="Left" Height="23" Margin="114,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <TextBox x:Name="initialsTB" HorizontalAlignment="Left" Height="23" Margin="358,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81"/>     
+        <TextBox x:Name="lastNameTB" HorizontalAlignment="Left" Height="23" Margin="114,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <TextBox x:Name="fullNameTB" HorizontalAlignment="Left" Height="23" Margin="114,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="10,24,0,0" VerticalAlignment="Top" Width="450"/>
+        <Label x:Name="logonNameLbl" Content="User logon name:" HorizontalAlignment="Left" Margin="10,174,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="logonNameTB" HorizontalAlignment="Left" Height="23" Margin="10,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+        <ComboBox x:Name="domainCB" HorizontalAlignment="Left" Margin="184,201,0,0" VerticalAlignment="Top" Width="169">
+            <ComboBoxItem IsSelected="True">domain.com</ComboBoxItem>
+        </ComboBox>
+        <Label x:Name="preWindowsLbl" Content="User logon name (pre-Windows 2000):" HorizontalAlignment="Left" Margin="10,239,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="domainTB" HorizontalAlignment="Left" Height="23" Margin="10,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Text="WBMI\" IsEnabled="False"/>
+        <TextBox x:Name="preWindowsTB" HorizontalAlignment="Left" Height="23" Margin="233,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" RenderTransformOrigin="-0.022,0.936"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="10,309,0,0" VerticalAlignment="Top" Width="450"/>
+        <Label x:Name="titleLbl" Content="Role-Based AD User Creation" HorizontalAlignment="Left" Margin="10,-1,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="ouLbl" Content="OU:" HorizontalAlignment="Left" Margin="10,315,0,0" VerticalAlignment="Top"/>
+
+        <ComboBox x:Name="ouCB" HorizontalAlignment="Left" Margin="54,319,0,0" VerticalAlignment="Top" Width="214">
+            <ComboBoxItem>OU1</ComboBoxItem>
+            <ComboBoxItem>OU2</ComboBoxItem>
+
+        </ComboBox>
+
+        <Button x:Name="CheckAliasBtn" Content="Check Exchange for Alias" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" Width="160" Height="30"/>
+        <Button x:Name="CheckUserIDBtn" Content="Check AD for UserID" HorizontalAlignment="Left" Margin="220,360,0,0" VerticalAlignment="Top" Width="130" Height="30"/>
+
+
+        <CheckBox x:Name="changePassCB" IsChecked="True" Content="User must change password at next logon" HorizontalAlignment="Left" Margin="10,439,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="cannotChangePassCB" Content="User cannot change password" HorizontalAlignment="Left" Margin="10,460,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="passNeverExpiresCB" Content="Password never expires" HorizontalAlignment="Left" Margin="10,481,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="disableAccountCB" Content="Account is disabled" HorizontalAlignment="Left" Margin="10,502,0,0" VerticalAlignment="Top"/>
+
+
+        <CheckBox x:Name="Expiration" Content="Account Expiration:" HorizontalAlignment="Left" Margin="9,580,0,0" VerticalAlignment="Top"/>
+        <DatePicker Height="25" HorizontalAlignment="Left" Margin="140,578,0,0" Name="ExpDate" VerticalAlignment="Top" Width="115" /> 
+
+        <CheckBox x:Name="ITUser" Content="IT User?" HorizontalAlignment="Left" Margin="9,615,0,0" VerticalAlignment="Top"/>   
+        <Label x:Name="ITManagerLbl" Content="IT Manager:" HorizontalAlignment="Left" Margin="100,615,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="ITManager" HorizontalAlignment="Left" Height="23" Margin="180,615,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" RenderTransformOrigin="-0.022,0.936"/>                  
+
+        <Label x:Name="ConsultantCompany" Content="Consultant Company:" HorizontalAlignment="Left" Margin="9,645,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="ConsCompany" HorizontalAlignment="Left" Height="23" Margin="140,648,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" RenderTransformOrigin="-0.022,0.936"/>                  
+
+        <Label x:Name="StartDateLbl" Content="Onboarding Date:" HorizontalAlignment="Left" Margin="9,680,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="StartDate" HorizontalAlignment="Left" Height="23" Margin="120,683,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" RenderTransformOrigin="-0.022,0.936"/>                  
+        <Label x:Name="orgLbl" Content="Organization Tab" HorizontalAlignment="Left" Margin="475,-1,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="DepartmentLbl" Content="Department:" HorizontalAlignment="Left" Margin="475,45,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="DepartmentCB" HorizontalAlignment="Left" Margin="565,50,0,0" VerticalAlignment="Top" Width="300">
+        <ComboBoxItem>Accounting &amp; Reporting</ComboBoxItem>
+            <ComboBoxItem>Department Name 1</ComboBoxItem>
+            <ComboBoxItem>Department Name 2</ComboBoxItem>
+        </ComboBox>
+
+        <Label x:Name="TitleLbl" Content="Title:" HorizontalAlignment="Left" Margin="475,90,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="TitleCB" HorizontalAlignment="Left" Margin="565,95,0,0" VerticalAlignment="Top" Width="300">
+            <ComboBoxItem>Title 1</ComboBoxItem>
+            <ComboBoxItem>Title 2</ComboBoxItem>
+            <ComboBoxItem>Title 3</ComboBoxItem>
+        </ComboBox>
+        
+        <Label x:Name="ManagerLbl" Content="Manager:" HorizontalAlignment="Left" Margin="475,130,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="ManagerCB" HorizontalAlignment="Left" Margin="565,135,0,0" VerticalAlignment="Top" Width="300">
+            <ComboBoxItem>Manager userid 1</ComboBoxItem>
+            <ComboBoxItem>Manager userid 2</ComboBoxItem>
+        </ComboBox>
+  
+        <Label x:Name="titleLbl2" Content="Exchange Creation" HorizontalAlignment="Left" Margin="475,190,0,0" VerticalAlignment="Top"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="475,215,0,0" VerticalAlignment="Top" Width="450"/>
+        <Label x:Name="databaseLbl" Content="Database:" HorizontalAlignment="Left" Margin="475,240,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="DataBaseCB" HorizontalAlignment="Left" Margin="545,240,0,0" VerticalAlignment="Top" Width="300">
+            <ComboBoxItem>Users A-D</ComboBoxItem>
+            <ComboBoxItem>Users I-M</ComboBoxItem>     
+            <ComboBoxItem>Users V-Z</ComboBoxItem>
+        </ComboBox>
+        <Label x:Name="attribute1Lbl" Content="Routing Station:" HorizontalAlignment="Left" Margin="475,285,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Att1TB" HorizontalAlignment="Left" Height="23" Margin="580,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <Label x:Name="attribute2Lbl" Content="Location:" HorizontalAlignment="Left" Margin="475,320,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Att2TB" HorizontalAlignment="Left" Height="23" Margin="580,320,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="475,360,0,0" VerticalAlignment="Top" Width="450"/>
+
+        <CheckBox x:Name="AdminAccount" Content="Needs Admin Account?" HorizontalAlignment="Left" Margin="475,385,0,0" VerticalAlignment="Top"/>
+
+        <Label x:Name="AdmFirstNameLbl" Content="First Name:" HorizontalAlignment="Left" Margin="475,420,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="AdmFirstNameTB" HorizontalAlignment="Left" Height="23" Margin="585,420,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <Label x:Name="AdmLastNameLbl" Content="Last Name:" HorizontalAlignment="Left" Margin="475,450,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="AdmLastNameTB" HorizontalAlignment="Left" Height="23" Margin="585,450,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <Label x:Name="AdminLbl" Content="Admin UserID:" HorizontalAlignment="Left" Margin="475,480,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="AdminTB" HorizontalAlignment="Left" Height="23" Margin="585,480,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+
+        <Button x:Name="createUserBtn" Content="Create User" HorizontalAlignment="Left" Margin="540,760,0,0" VerticalAlignment="Top" Width="120" Height="43"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="10,559,0,0" VerticalAlignment="Top" Width="450"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="475,24,0,0" VerticalAlignment="Top" Width="450"/>
+        <Button x:Name="cancelBtn" Content="Cancel" HorizontalAlignment="Left" Margin="735,775,0,0" VerticalAlignment="Top" Width="75"/>
+
+    </Grid>
+    </ScrollViewer>
+</Window>
+"@  
+ 
+$inputXML = $inputXML -replace 'mc:Ignorable="d"','' -replace "x:N",'N'  -replace '^<Win.*', '<Window'
+ 
+[void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
+[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing") 
+[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
+[xml]$XAML = $inputXML
+#Read XAML
+ 
+    $reader=(New-Object System.Xml.XmlNodeReader $xaml)
+try{$Form=[Windows.Markup.XamlReader]::Load( $reader )}
+catch{Write-Warning "Unable to parse XML, with error: $($Error[0])`n Ensure that there are NO SelectionChanged properties (PowerShell cannot process them)"
+    throw}
+ 
+#===========================================================================
+# Load XAML Objects In PowerShell
+#===========================================================================
+  
+$xaml.SelectNodes("//*[@Name]") | %{"trying item $($_.Name)";
+    try {Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop}
+    catch{throw}
+    }
+ 
+Function Get-FormVariables{
+if ($global:ReadmeDisplay -ne $true){Write-host "If you need to reference this display again, run Get-FormVariables" -ForegroundColor Yellow;$global:ReadmeDisplay=$true}
+write-host "Found the following interactable elements from our form" -ForegroundColor Cyan
+get-variable WPF*
+}
+ 
+Get-FormVariables
+ 
+#===== Use specific Domain Controller if needed
+#$PSDefaultParameterValues = @{"*-AD*:Server"='DNS name for Domain controller'}
+
+#===========================================================================
+# Make the objects work/Global vars
+#===========================================================================
+
+$ErrorActionPreference = "Continue"
+
+$WPFouCB.IsEnabled = $true
+$WPFpassNeverExpiresCB.IsEnabled = $true
+$WPFroleCB.IsEnabled = $true
+$WPFchangePassCB.IsEnabled = $true
+$WPFcannotChangePassCB.IsEnabled = $true
+$WPFdisableAccountCB.IsEnabled = $true
+$WPFcreateUserBtn.IsEnabled = $true
+$WPFDataBaseCB.IsEnabled = $true
+$WPFAdminAccount.IsEnabled = $true
+$WPFExpiration.IsEnabled = $true
+
+
+Function checkFilledFields {
+    $firstName = $WPFfirstNameTB.Text.Length
+    $lastName = $WPFlastNameTB.Text.Length
+    $logonName = $WPFlogonNameTB.Text.Length
+    $preWindows = $WPFpreWindowsTB.Text.Length
+
+        $WPFouCB.IsEnabled = $true
+        $WPFpassNeverExpiresCB.IsEnabled = $true
+        $WPFroleCB.IsEnabled = $true
+        $WPFchangePassCB.IsEnabled = $true
+        $WPFcannotChangePassCB.IsEnabled = $true
+        $WPFdisableAccountCB.IsEnabled = $true
+        $WPFcreateUserBtn.IsEnabled = $true
+ 
+}
+
+Function whatOU([string]$OU, [string]$selectedItem) {
+
+}
+
+
+function User-Password {
+function Get-RandomCharacters($length, $characters) {
+    $random = 1..$length | ForEach-Object { Get-Random -Maximum $characters.length }
+    $private:ofs=""
+    return [String]$characters[$random]
+}
+ #===== random password generator for AD Account
+function Scramble-String([string]$inputString){     
+    $characterArray = $inputString.ToCharArray()   
+    $scrambledStringArray = $characterArray | Get-Random -Count $characterArray.Length     
+    $outputString = -join $scrambledStringArray
+    return $outputString 
+    }
+ 
+$password = Get-RandomCharacters -length 3 -characters 'abcdefghikmnprstuvwxyz'
+$password += Get-RandomCharacters -length 3 -characters 'ABCDEFGHKLMNPRSTUVWXYZ'
+$password += Get-RandomCharacters -length 1 -characters '123456789'
+$password += Get-RandomCharacters -length 1 -characters '!$%&/()=?}{@#*+'
+  
+$password = Scramble-String $password | out-file "C:\Temp\password.txt"
+}
+
+
+
+#===== random password generator for Admin account
+function Admin-Password {
+function Get-RandomCharacters($length, $characters) {
+    $random = 1..$length | ForEach-Object { Get-Random -Maximum $characters.length }
+    $private:ofs=""
+    return [String]$characters[$random]
+}
+ #===== random password generator for AD Account
+function Scramble-String([string]$inputString){     
+    $characterArray = $inputString.ToCharArray()   
+    $scrambledStringArray = $characterArray | Get-Random -Count $characterArray.Length     
+    $outputString = -join $scrambledStringArray
+    return $outputString 
+    }
+ 
+$password = Get-RandomCharacters -length 5 -characters 'abcdefghikmnprstuvwxyz'
+$password += Get-RandomCharacters -length 5 -characters 'ABCDEFGHKLMNPRSTUVWXYZ'
+$password += Get-RandomCharacters -length 3 -characters '123456789'
+$password += Get-RandomCharacters -length 1 -characters '!$%&/()=?}{@#*+'
+  
+$password = Scramble-String $password | out-file "C:\Temp\AdminPassword.txt"
+}
+
+$WPFcancelBtn.Add_click({
+    $Form.Close()    
+})
+
+$WPFfirstNameTB.Add_TextChanged({
+    checkFilledFields
+    $firstText = $WPFfirstNameTB.Text
+    $lastText = $WPFlastnameTB.Text
+    $initialLength = $WPFinitialsTB.Text.Length
+    if($initialLength -ne 0) {
+        $initialText = $WPFinitialsTB.Text + '.'
+    }
+    else {
+        $initialText = $WPFinitialsTB.Text
+    }
+    $nameArray = "$firstText","$initialText","$lastText"
+    $WPFfullNameTB.Text = "$nameArray"
+
+    $UPNCAT = $firstText[0]+$LastText
+    $WPFlogonNameTB.text = "$UPNCat"
+
+    if ($InitialLength -eq 0){
+    $UserIDCAT = $firstText[0]+$WPFinitialsTB.Text+$lastText.Substring(0,6)
+    }
+    else{
+    $UserIDCAT = $firstText[0]+$WPFinitialsTB.Text+$lastText.Substring(0,5)
+    }
+    $WPFprewindowsTB.text = $UserIDCAT
+})
+
+$WPFinitialsTB.Add_TextChanged({
+    #the below code could be put into one function and dropped into all text changed events
+    checkFilledFields
+    $initialLength = $WPFinitialsTB.Text.Length
+    if($initialLength -ne 0) {
+        $initialText = $WPFinitialsTB.Text + '.'
+    }
+    else {
+        $initialText = $WPFinitialsTB.Text
+    }
+    $lastText = $WPFlastnameTB.Text
+    $firstText = $WPFfirstNameTB.Text
+    $nameArray = "$firstText","$initialText","$lastText"
+    $WPFfullNameTB.Text = "$nameArray"      
+
+    $UPNCAT = $firstText[0]+$LastText
+    $WPFlogonNameTB.text = "$UPNCat"
+
+    if ($InitialLength -eq 0){
+    $UserIDCAT = $firstText[0]+$WPFinitialsTB.Text+$lastText.Substring(0,6)
+    }
+    else{
+    $UserIDCAT = $firstText[0]+$WPFinitialsTB.Text+$lastText.Substring(0,5)
+    }
+    $WPFprewindowsTB.text = $UserIDCAT
+
+})
+
+$WPFlastnameTB.Add_TextChanged({
+    checkFilledFields
+    $lastText = $WPFlastnameTB.Text
+    $firstText = $WPFfirstNameTB.Text
+    $initialLength = $WPFinitialsTB.Text.Length
+    if($initialLength -ne 0) {
+        $initialText = $WPFinitialsTB.Text + '.'
+    }
+    else {
+        $initialText = $WPFinitialsTB.Text
+    }
+    $nameArray = "$firstText","$initialText","$lastText"
+    $WPFfullNameTB.Text = "$nameArray"
+
+    $UPNCAT = $firstText[0]+$LastText
+    $WPFlogonNameTB.text = "$UPNCat"
+
+    if ($InitialLength -eq 0){
+    $UserIDCAT = $firstText[0]+$WPFinitialsTB.Text+$lastText.Substring(0,6)
+    }
+    else{
+    $UserIDCAT = $firstText[0]+$WPFinitialsTB.Text+$lastText.Substring(0,5)
+    }
+    $WPFprewindowsTB.text = $UserIDCAT
+
+})
+
+$WPFlogonNameTB.Add_TextChanged({
+    checkFilledFields
+    $text = $WPFlogonNameTB.Text
+})
+
+$WPFpreWindowsTB.Add_TextChanged({
+    checkFilledFields
+})
+
+
+$WPFcreateUserBtn.Add_click({
+
+
+User-Password
+Admin-Password
+
+    $samAccName = $WPFpreWindowsTB.Text
+    $database = $WPFDataBaseCB.Text
+    $Att1 = $WPFAtt1TB.Text
+    $Att2 = $WPFAtt2TB.Text
+    $AdminAccount = $WPFAdminAccount
+    $AdmFirstName = $WPFAdmFirstNameTB.Text
+    $AdmLastName = $WPFAdmLastNameTB.Text
+    $AdmUsername = $WPFAdminTB.Text
+    $ITUser = $WPFITUser
+    $ITManager = $WPFITManager.Text
+    $ConsComp = $WPFConsCompany.Text
+    $Onboardingdate = $WPFStartDate.Text
+    $StartDate = $WPFStartDate.Text
+    $Expiration = $WPFExpiration
+    $ExpDate = $WPFExpDate.Text
+    $Title = $WPFTitleCB.Text
+    $Dept = $WPFDepartmentCB.Text
+    $Manager = $WPFManagerCB.Text
+    $UPN = $WPFlogonNameTB.Text + "@wbmi.com"
+    $AdmUPN = $WPFAdminTB.Text + "@wbmi.com"
+    $ou = $WPFouCB.Text
+    $role = $WPFroleCB.Text
+    $firstName = $WPFfirstNameTB.Text
+    $lastName = $WPFlastNameTB.Text
+    $name = $lastName + " " + $firstName
+    $displayName = $lastName + ',' + " $firstName"
+    $initials = $WPFinitialsTB.Text
+    $Creds = Get-Credential
+    $ADPWTXT = Get-Content C:\temp\password.txt
+
+
+    
+    
+    if($WPFcannotChangePassCB.isChecked -eq $true) {
+        $cannotChange = $true
+    }
+    else {
+        $cannotChange = $false
+    }
+
+    if($WPFpassNeverExpiresCB.isChecked -eq $true) {
+        $passNeverExpires = $true
+    }
+    else {
+        $passNeverExpires = $false
+    }
+
+    if($WPFdisableAccountCB.isChecked -eq $true) {
+        $isEnabled = $false
+    }
+    else {
+        $isEnabled = $true
+    }
+
+    
+$ADpassword = ConvertTo-SecureString $ADPWTXT -AsPlainText -Force 
+
+Write-Host "Creating user account."
+
+try{
+     New-ADUser -erroraction stop -Credential $Creds -SamAccountName "$samAccName" -Name "$name" -Path "$path" -UserPrincipalName "$UPN" `
+        -GivenName "$firstName" -Surname "$lastName" -Initials "$initials" -DisplayName "$displayName" `
+        -Office "$office" -AccountPassword $ADpassword `
+        -CannotChangePassword $cannotChange -PasswordNeverExpires $passNeverExpires -Enabled $isEnabled
+        }
+
+catch{  
+$Form.Close()
+Write-Host "User not created. check if username already exists in AD" -ForegroundColor Red -BackgroundColor Black
+exit
+}
+     Set-ADUser -Credential $Creds -Identity "$samAccName" -ChangePasswordAtLogon $true
+     Set-ADUser -Credential $Creds -Identity "$samAccName" -ScriptPath "login.bat" 
+     Set-ADUser -Credential $Creds -Identity "$samAccName" -Company "$company" -Department "$Dept" -Title "$Title" -Manager "$Manager"
+
+   Write-Output "created AD account, $samAccName, in $path."
+
+    
+
+    if($WPFchangePassCB.isChecked -eq $true) {
+        Set-ADUser -Credential $Creds -Identity "$samAccName" -ChangePasswordAtLogon $true
+    }
+    else {
+        Set-ADUser -Credential $Creds -Identity "$samAccName" -ChangePasswordAtLogon $false
+    }
+
+
+Write-Host "Adding company, department, title, manager"
+
+     Set-ADUser -Credential $Creds -Identity "$samAccName" -Company "$company" -Department "$Dept" -Title "$Title" -Manager "$Manager"
+
+
+ #=========================================================================
+ #=====create admin account if box is checked==============================
+ #=========================================================================
+
+      if($AdminAccount.isChecked -eq $true) {
+            Write-Host "Creating Admin account"
+
+      $ADMINPWTXT = Get-Content C:\temp\AdminPassword.txt
+
+       New-ADUser `
+            -Credential $Creds `
+            -SamAccountName $AdmUsername `
+            -UserPrincipalName $AdmUPN `
+            -Name ("$lastName $AdmFirstName (Admin)") `
+            -GivenName $AdmFirstName `
+            -Surname "$lastName (Admin)" `
+            -Enabled $true `
+            -DisplayName "$LastName, $AdmFirstName (Admin)" `
+            -Path "OU Location for Admin accounts" `
+            -Manager $Manager `
+            -AccountPassword (convertto-securestring $ADMINPWTXT -AsPlainText -Force) `
+            -Company $ConsComp `
+            -title $title `
+            -Department $Dept
+        Set-ADUser `
+            -Credential $Creds `
+            -Identity $AdmUsername 
+        Rename-Item -Path "C:\temp\AdminPassword.txt" -NewName "$samAccName.AdminPassword.txt"
+           
+        Write-Output "created admin account, $AdmUsername. added AD group: FG_Admin_PW_Policy."
+
+   }
+  
+
+    
+    $Form.Close()
+ #==========================================================================
+ #=====wait 10 seconds for AD update========================================
+ #==========================================================================
+ Write-Host "Waiting for AD to fully fill in before creating exchange account."
+ Start-Sleep -s 15
+
+ 
+ #==========================================================================
+ # Create Exchange account
+ #==========================================================================
+
+ Write-Host "Creating Exchange Account"
+
+ $Session = New-PSSession -ConfigurationName Microsoft.Exchange –ConnectionUri "exchange server info" -Authentication Kerberos
+
+ start-sleep -s 2
+
+ Import-PSSession -Session $Session -AllowClobber
+ 
+                 #create mailbox, and set retention policy
+ Enable-Mailbox -Identity: "$samAccName" -RetentionPolicy: "retention policy here" 
+
+                  #disable activesync and pop3, and add wbunity address
+ Set-CASMailbox -Identity: "$samAccName" -ActiveSyncEnabled $false -PopEnabled $false 
+
+ Write-Output "Created exchange account with database: $database, and set retention policy. Disabled activesync and pop3."
+
+ Write-Host "Done - pausing to allow exchange to catch up."
+
+ Start-Sleep -s 15
+
+ Remove-PsSession $Session
+
+
+ #==========================================================================
+ #=====set account expiration date on regular account if box is checked=====
+ #==========================================================================
+
+    if($Expiration.IsChecked -eq $true) {
+        Write-Host "Setting expiration date"
+
+        Set-ADAccountExpiration `
+            -Credential $Creds `
+            -Identity $samAccName `
+            -DateTime $ExpDate    
+    }
+    else { Start-Sleep -s 1 }
+
+    #===set account expiration date on admin account if both boxes are checked
+    
+    if(($Expiration.IsChecked -eq $true) -and ($AdminAccount.IsChecked -eq $true)) {
+        Set-ADAccountExpiration `
+            -Credential $Creds `
+            -Identity $AdmUserName -DateTime $ExpDate
+        }
+
+     
+#===== If title is Consultant, edit "Company" field in AD
+if($title -like "Consultant") {
+Set-ADUser -Identity $SamaccName -Title $Title
+}
+
+#===== rename password file for organization
+Rename-Item -Path "C:\temp\password.txt" -NewName "$samAccName.password.txt"
+
+
+})
+
+
+#===========================================================================
+# Shows the form
+#===========================================================================
+$Form.ShowDialog() | out-null
